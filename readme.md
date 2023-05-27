@@ -21,14 +21,14 @@ Youtube data api   in searchbar   click first linkweb site:      https://d
 	**->Create connections:**
 	Give your username and password
 	
-1.**Connection  to sql database**
+	1.**Connection  to sql database**
 
-import psycopg2
-db2=psycopg2.connect(host='localhost', user='********', password=*******, port=5432, database="yt")
-cursor=db2.cursor()
+	import psycopg2
+	db2=psycopg2.connect(host='localhost', user='********', password=*******, port=5432, database="yt")
+	cursor=db2.cursor()
 
-2. **Connection  to No- sql database**
-client=pymongo.MongoClient("mongodb+srv://username:******@cluster0.m4kzbjb.mongodb.net/?retryWrites=true&w=majority")
+	2. **Connection  to No- sql database**
+	client=pymongo.MongoClient("mongodb+srv://username:******@cluster0.m4kzbjb.mongodb.net/?retryWrites=true&w=majority")
 
 Step 4:
 Extract youtube informations
