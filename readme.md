@@ -2,7 +2,7 @@ Step1:   Create Youtube  API key
 Go to the browser google developer consolecloud overviewcreate projectgive name ok
 Goto api serviceenablescroll downyoutube data api  v3managecreate consolepublic dataapi
 My yt api:          ABCe2yklwjxI24zpi80jKtc44VNnLs
- Web page: https://console.cloud.google.com/apis/api/youtube.googleapis.com/metrics?project=yt-analysis-386212&supportedpurview=project
+ Web page: https://console.cloud.google.com/apis/api....
 
 Step2:
 Youtube data api     in searchbar   click first linkweb site:      https://developers.google.com/youtube/v3
