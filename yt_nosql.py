@@ -1,11 +1,7 @@
-
-
 #importing libraries
 from googleapiclient.discovery import build
 import pandas as pd
-import seaborn as sns
 import pymongo
-from requests.adapters import ResponseError
 
 #connection
 client=pymongo.MongoClient("mongodb+srv://priya:generate@cluster0.m4kzbjb.mongodb.net/?retryWrites=true&w=majority")
