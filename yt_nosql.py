@@ -4,13 +4,14 @@ import pandas as pd
 import pymongo
 
 #connection
-client=pymongo.MongoClient("mongodb+srv://priya:generate@cluster0.m4kzbjb.mongodb.net/?retryWrites=true&w=majority")
+client=pymongo.MongoClient("mongodb+srv://username:password@cluster0.m4kzbjb.mongodb.net/?retryWrites=true&w=majority")
 db=client["Youtube_Scraping"]
 col=db["Youtube_data"]
 #col.delete_many({})
 
-api_key="AIzaSyBA7EXqiRj-61W5o55SoqY4kuXI6FuW1F4"
-#api_key = 'AIzaSyCJUmmre2yklwjxI24zpi80jKtc44VNnLs'
+sample channel IDs and API(use proper API)
+api_key="SyBA7EXqiRj-61W5o55SoqY4kuXI6FuW1F4"
+#api_key = 'yCJUmmre2yklwjxI24zpi80jKtc44VNnLs'
 #channel_id = 'UCmhRdtdgJCa7mg4Jjv4zAmA'  # tridentinfo   1
 #channel_id="UCl5LlCSvu5896s7n1tUYarA"#MATH THE IMMORTAL   2
 # channel_id= "UCM3nM3FDTVuO9vpGUYnnupA"   #Jagadesh Anbu   3
@@ -31,7 +32,6 @@ def get_channel_stats(youtube, channel_id):
         part='snippet,contentDetails,statistics',
         id=channel_id)
     c_id_response = c_id_request.execute()
-    # print(c_id_response)
     info = c_id_response.get("items")[0]
 
     data = {"channel_detail": {"channel_info": {
@@ -56,9 +56,7 @@ def get_channel_stats(youtube, channel_id):
     )
     # print(p_lst_lst)
     v_response = v_request.execute()
-    # print("-----",v_response)
     video_ids = []
-    # print(response)
     for i in range(len(v_response['items'])):
         video_ids.append(v_response['items'][i]['contentDetails']['videoId'])
     next_page_token = v_response.get('nextPageToken')
@@ -78,12 +76,7 @@ def get_channel_stats(youtube, channel_id):
                 video_ids.append(v_response['items'][i]['contentDetails']['videoId'])
             next_page_token = v_response.get('nextPageToken')
 
-    # data["channel_detail"]["video_info"]=video_ids
-
-    # print("=========>",len(video_ids))
-    # a=pd.DataFrame(video_ids)
-    # print(a)
-
+   
     # video info============================================================
     all_video_details = []
     for vid in range(0, len(video_ids), 50):
@@ -92,7 +85,7 @@ def get_channel_stats(youtube, channel_id):
             id=",".join(video_ids[vid:vid + 50])
         )
         v_info_response = v_info_request.execute()
-        #print("........", v_info_response)
+        
 
         for video in v_info_response['items']:
             vid_data = {
@@ -105,11 +98,9 @@ def get_channel_stats(youtube, channel_id):
                 "fav_count": video["statistics"]["favoriteCount"],
                 "thumbnail": video['snippet']["thumbnails"]["default"]["url"],
                 "caption_status": video['contentDetails']["caption"]
-                # "duration": video['contentDetails']["duration"]
-                # "like_count":  video["statistics"]["likeCount"],
-                # "tags": video['snippet']["tags"]
+            
             }
-            # print(vid_data)
+            
             try:
                 vid_data["duration"] = video['contentDetails']["duration"]
             except:
@@ -139,12 +130,7 @@ def get_channel_stats(youtube, channel_id):
 
             # print(all_video_details)
     data["channel_detail"]["video_info"] = all_video_details
-    # print(">>>",vid_data)
-    # all_video_details.append(video_stats)
-    # print(v_info_response)
 
-    # df=pd.DataFrame(data)
-    # print(df)
 
     comment_info = []
     for x in video_ids:
@@ -157,13 +143,10 @@ def get_channel_stats(youtube, channel_id):
         )
         try:
             response = request.execute()
-            # print(response)
         except:
             pass
         try:
             c_response = response['items'][0]
-            # print(len(response))
-            # print(len(response['items']))
             cmd_data["comment_id"] = c_response["id"]
             cmd_data["video_id"] = c_response["snippet"]["videoId"]
             # cmd_data["comment_txt"]=response['items'][0]["snippet"]["topLevelComment"]["snippet"]["textDisplay"]
@@ -174,8 +157,6 @@ def get_channel_stats(youtube, channel_id):
             cmd_data["comment_txt"] = lst
             cmd_data["comment_author"] = c_response["snippet"]["topLevelComment"]["snippet"]["authorDisplayName"]
             cmd_data["comment_publish_date"] = c_response["snippet"]["topLevelComment"]["snippet"]["publishedAt"][:10]
-            # pritn(len)
-            # print(cmd_data)
             comment_info.append(cmd_data)
         except:
             pass
@@ -211,8 +192,6 @@ def get_channel_stats(youtube, channel_id):
                 cmd_data["comment_txt"] = lst
                 cmd_data["comment_author"] = c_response["snippet"]["topLevelComment"]["snippet"]["authorDisplayName"]
                 cmd_data["comment_publish_date"] = c_response["snippet"]["topLevelComment"]["snippet"]["publishedAt"]
-                # pritn(len)
-                # print(cmd_data)
                 comment_info.append(cmd_data)
             except:
                 pass
