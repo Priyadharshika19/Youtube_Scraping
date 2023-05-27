@@ -9,7 +9,9 @@ Youtube data api   in searchbar   click first linkweb site:      https://d
 
 **Step3:**
 	Pip install google-api-python-client
+	
 	**->Import modules:**  
+	
 	import streamlit as st
 	import psycopg2
 	from googleapiclient.discovery import build
@@ -20,6 +22,7 @@ Youtube data api   in searchbar   click first linkweb site:      https://d
 	Give your username and password
 	
 1.**Connection  to sql database**
+
 import psycopg2
 db2=psycopg2.connect(host='localhost', user='********', password=*******, port=5432, database="yt")
 cursor=db2.cursor()
